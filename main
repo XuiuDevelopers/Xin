@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Function to download a file
+download_file() {
+    local url=$1
+    local file=$2
+    local dir=$(dirname "$file")
+
+    # Create directory if it does not exist
+    if [ ! -d "$dir" ]; then
+        mkdir -p "$dir"
+    fi
+
+    # Download the file
+    curl -L "$url" -o "$file"
+}
+
+# Function to download multiple files
+download_files() {
+    local base_url=$1
+    local usernames=("${!2}")
+    local projects=("${!3}")
+    local locations=("${!4}")
+    local files=("${!5}")
+
+    # Loop through the arrays and download each file
+    for i in "${!usernames[@]}"; do
+        local url="${base_url}${usernames[$i]}/${projects[$i]}/${locations[$i]}"
+        local file="${files[$i]}"
+        download_file "$url" "$file"
+    done
+}

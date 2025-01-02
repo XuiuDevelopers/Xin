@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Source the module file
+source main
+
+# BASE URL FOR GITHUB RAW
+BASE_URL="https://raw.githubusercontent.com/"
+
+# USERNAME OF GITHUB USER / ORGANISATION
+USERNAMES=(
+    "hyprwm"
+    "elifouts"
+    "elifouts"
+)
+
+# GITHUB PROJECT NAME
+PROJECTS=(
+    "Hyprland"
+    "Dotfiles"
+    "Dotfiles"
+)
+
+# EXACT LOCATION OF FILE IN REPO
+LOCATIONS=(
+    "refs/heads/main/example/hyprland.conf"
+    "6df11f34f21bd04e9f0a7ec4f54bb87222f77a9d/waybar/config"
+    "6df11f34f21bd04e9f0a7ec4f54bb87222f77a9d/waybar/style.css"
+)
+
+# LOCAL FILE PATHS IN SYSTEM
+FILES=(
+    "/home/megh/Project/Xin/.config/hypr/hyprland.conf"
+    "/home/megh/Project/Xin/.config/waybar/config"
+    "/home/megh/Project/Xin/.config/waybar/style.css"
+)
+
+# Call the function to download files
+download_files "$BASE_URL" USERNAMES[@] PROJECTS[@] LOCATIONS[@] FILES[@]
