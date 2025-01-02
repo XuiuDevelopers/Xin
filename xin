@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# BASE URL FOR GITHUB RAW
+BASE_URL="https://raw.githubusercontent.com/"
+
+# USERNAME OF GITHUB USER / ORGANISATION
+USERNAMES=(
+    "hyprwm"
+    "elifouts"
+    "elifouts"
+)
+
+# GITHUB PROJECT NAME
+PROJECTS=(
+    "Hyprland"
+    "Dotfiles"
+    "Dotfiles"
+)
+
+# EXACT LOCATION OF FILE IN REPO
+LOCATIONS=(
+    "refs/heads/main/example/hyprland.conf"
+    "6df11f34f21bd04e9f0a7ec4f54bb87222f77a9d/waybar/config"
+    "6df11f34f21bd04e9f0a7ec4f54bb87222f77a9d/waybar/style.css"
+)
+
+# LOCAL FILE PATHS IN SYSTEM
+FILES=(
+    "/home/megh/Project/Xin/.config/hypr/hyprland.conf"
+    "/home/megh/Project/Xin/.config/waybar/config"
+    "/home/megh/Project/Xin/.config/waybar/style.css"
+)
+
+# Function to download a file
+download_file() {
+    local url=$1
+    local file=$2
+    local dir=$(dirname "$file")
+
+    # Create directory if it does not exist
+    if [ ! -d "$dir" ]; then
+        mkdir -p "$dir"
+    fi
+
+    # Download the file
+    curl -L "$url" -o "$file"
+}
+
+# Loop through the arrays and download each file
+for i in "${!USERNAMES[@]}"; do
+    URL="${BASE_URL}${USERNAMES[$i]}/${PROJECTS[$i]}/${LOCATIONS[$i]}"
+    FILE="${FILES[$i]}"
+    download_file "$URL" "$FILE"
+done
